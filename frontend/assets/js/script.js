@@ -428,7 +428,7 @@ function initializeApp() {
     initBackgroundAnimation();
     initMouseFollowParticles();
 
-    addRippleAnimation();
+    initCTAButtons();
 
     // Check for IntersectionObserver support
     if ('IntersectionObserver' in window) {
@@ -464,3 +464,10 @@ if (document.readyState === 'loading') {
 window.addEventListener('beforeunload', () => {
     clearTimeout(carouselTimer);
 });
+// Backend connection test
+const BACKEND_URL = "http://localhost:5000";
+
+fetch(`${BACKEND_URL}/`)
+  .then(res => res.text())
+  .then(data => console.log("✅ BACKEND CONNECTED:", data))
+  .catch(err => console.error("❌ BACKEND CONNECTION ERROR:", err));
