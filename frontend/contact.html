@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ZENDESI - Contact our support team for booking help, payment issues, or travel questions.">
+    <meta name="theme-color" content="#ff385c">
+    <title>ZENDESI - Contact</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <header role="banner">
+        <div class="nav-container">
+            <a href="index.html" class="logo-section">
+                <div class="logo" aria-label="ZENDESI Logo">Z</div>
+                <h1>ZENDESI</h1>
+            </a>
+            <nav class="nav-menu" aria-label="Primary navigation">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="explore.html" class="nav-link">Explore</a>
+                <a href="reviews.html" class="nav-link">Reviews</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+            <div class="header-actions">
+                <div id="user-menu" class="user-menu hidden">
+                    <span id="user-name"></span>
+                    <button id="logout-btn" class="logout-btn">Logout</button>
+                </div>
+                <a href="auth.html" id="login-btn" class="cta-button">Login</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h2>We’re Here to Help</h2>
+                <p class="subtitle">Questions about booking, payment, or destinations? Message us anytime.</p>
+                <div class="cta-group">
+                    <button class="primary-button" data-href="explore.html">Explore Destinations</button>
+                    <button class="secondary-button" data-href="reviews.html">Read Reviews</button>
+                </div>
+            </div>
+            <div class="hero-decoration"></div>
+        </section>
+
+        <section class="contact-section" aria-label="Contact form">
+            <div class="section-header">
+                <h2 class="section-title">Contact ZENDESI</h2>
+                <p class="section-subtitle">We usually respond within 24 hours</p>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <h3>Send us a message</h3>
+                    <form id="contact-form" class="contact-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contact-name">Your name</label>
+                                <input id="contact-name" type="text" placeholder="e.g., Aarav Sharma" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contact-email">Email</label>
+                                <input id="contact-email" type="email" placeholder="you@example.com" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-topic">Topic</label>
+                            <select id="contact-topic" required>
+                                <option value="" selected disabled>Choose a topic</option>
+                                <option value="booking">Booking help</option>
+                                <option value="payment">Payment issue</option>
+                                <option value="account">Account / Login</option>
+                                <option value="destination">Destination question</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-message">Message</label>
+                            <textarea id="contact-message" rows="5" placeholder="Tell us what you need help with..." required></textarea>
+                        </div>
+                        <button type="submit" class="cta-button contact-submit">Send Message</button>
+                    </form>
+                </div>
+
+                <div class="contact-card contact-info">
+                    <h3>Support</h3>
+                    <div class="info-list">
+                        <div class="info-item">
+                            <span class="info-icon">📧</span>
+                            <div>
+                                <p class="info-label">Email</p>
+                                <p class="info-value">support@zendesi.com</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-icon">📞</span>
+                            <div>
+                                <p class="info-label">Phone</p>
+                                <p class="info-value">+91 90000 00000</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-icon">💬</span>
+                            <div>
+                                <p class="info-label">WhatsApp</p>
+                                <p class="info-value">Quick support for bookings</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-icon">🕒</span>
+                            <div>
+                                <p class="info-label">Hours</p>
+                                <p class="info-value">Mon–Sun • 9:00 AM – 9:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="support-note">
+                        <p><strong>Tip:</strong> If you’re facing a login issue, include your email and the page you were on (Explore / Destination / Payment) so we can help faster.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="footer" class="footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <div class="footer-logo">
+                    <div class="logo-small">Z</div>
+                    <h3>ZENDESI</h3>
+                </div>
+                <p>Discover, explore, and experience the beauty of India with curated travel experiences.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook">f</a>
+                    <a href="#" aria-label="Instagram">📷</a>
+                    <a href="#" aria-label="Twitter">𝕏</a>
+                    <a href="#" aria-label="YouTube">▶</a>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="explore.html">Explore</a></li>
+                    <li><a href="reviews.html">Reviews</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Help Centre</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="#">Safety</a></li>
+                    <li><a href="#">Community</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Accessibility</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 ZENDESI. All rights reserved. Crafted with ❤️ for Indian travelers.</p>
+            <div class="payment-methods">
+                <span>We accept: UPI • Credit Cards • Net Banking • Digital Wallets</span>
+            </div>
+        </div>
+    </footer>
+
+    <button class="scroll-top" aria-label="Scroll to top">↑</button>
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/contact.js"></script>
+</body>
+</html>

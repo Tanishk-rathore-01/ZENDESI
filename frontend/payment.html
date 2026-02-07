@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ZENDESI - Secure Payment">
+    <meta name="theme-color" content="#ff385c">
+    <title>ZENDESI - Payment</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="payment-body">
+    <!-- Animated Background -->
+    <div class="payment-bg">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <header role="banner">
+        <div class="nav-container">
+            <a href="index.html" class="logo-section">
+                <div class="logo" aria-label="ZENDESI Logo">Z</div>
+                <h1>ZENDESI</h1>
+            </a>
+            <div class="checkout-steps">
+                <span class="step completed">1. Select</span>
+                <span class="step completed">2. Details</span>
+                <span class="step active">3. Payment</span>
+                <span class="step">4. Confirm</span>
+            </div>
+            <div class="header-actions">
+                <div id="user-menu" class="user-menu hidden">
+                    <span id="user-name"></span>
+                    <button id="logout-btn" class="logout-btn">Logout</button>
+                </div>
+                <a href="auth.html" id="login-btn" class="cta-button">Login</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="payment-main">
+        <div class="payment-container">
+            <!-- Order Summary -->
+            <div class="order-summary">
+                <h2>Booking Summary</h2>
+                <div class="summary-card">
+                    <div class="hotel-preview">
+                        <img id="hotel-image" src="" alt="Hotel">
+                        <div class="hotel-info">
+                            <h3 id="hotel-name">Hotel Name</h3>
+                            <p id="hotel-location" class="location">Location</p>
+                            <div class="hotel-rating">
+                                <span class="stars" id="hotel-stars">★★★★★</span>
+                                <span id="hotel-rating">5.0</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="booking-details">
+                        <div class="detail-row">
+                            <span class="label">Check-in</span>
+                            <span class="value" id="checkin-date">-</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="label">Check-out</span>
+                            <span class="value" id="checkout-date">-</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="label">Duration</span>
+                            <span class="value" id="nights-count">-</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="label">Guests</span>
+                            <span class="value" id="guests-count">-</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="label">Rooms</span>
+                            <span class="value" id="rooms-count">-</span>
+                        </div>
+                    </div>
+                    
+                    <div class="price-breakdown">
+                        <div class="price-row">
+                            <span>Room charges</span>
+                            <span id="subtotal">₹0</span>
+                        </div>
+                        <div class="price-row">
+                            <span>Taxes & fees (18% GST)</span>
+                            <span id="taxes">₹0</span>
+                        </div>
+                        <div class="price-row total">
+                            <span>Total Amount</span>
+                            <span id="total">₹0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="secure-badge">
+                    <span class="lock-icon">🔒</span>
+                    <span>Secure SSL Encrypted Payment</span>
+                </div>
+            </div>
+
+            <!-- Payment Form -->
+            <div class="payment-form-container">
+                <h2>Payment Method</h2>
+                
+                <!-- Payment Method Tabs -->
+                <div class="payment-tabs">
+                    <button class="payment-tab active" data-method="card">
+                        <span class="tab-icon">💳</span>
+                        <span>Card</span>
+                    </button>
+                    <button class="payment-tab" data-method="upi">
+                        <span class="tab-icon">📱</span>
+                        <span>UPI</span>
+                    </button>
+                    <button class="payment-tab" data-method="netbanking">
+                        <span class="tab-icon">🏦</span>
+                        <span>Net Banking</span>
+                    </button>
+                    <button class="payment-tab" data-method="wallet">
+                        <span class="tab-icon">👛</span>
+                        <span>Wallet</span>
+                    </button>
+                </div>
+
+                <!-- Card Payment Form -->
+                <form id="card-form" class="payment-form active">
+                    <div class="card-preview">
+                        <div class="card-front">
+                            <div class="card-chip"></div>
+                            <div class="card-number" id="preview-number">•••• •••• •••• ••••</div>
+                            <div class="card-details">
+                                <div class="card-holder">
+                                    <span class="label">Card Holder</span>
+                                    <span id="preview-name">YOUR NAME</span>
+                                </div>
+                                <div class="card-expiry">
+                                    <span class="label">Expires</span>
+                                    <span id="preview-expiry">MM/YY</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="card-number">Card Number</label>
+                        <input type="text" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                        <div class="card-brands">
+                            <span class="brand visa">VISA</span>
+                            <span class="brand mastercard">MC</span>
+                            <span class="brand rupay">RuPay</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="card-name">Cardholder Name</label>
+                        <input type="text" id="card-name" placeholder="Name on card" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="card-expiry">Expiry Date</label>
+                            <input type="text" id="card-expiry" placeholder="MM/YY" maxlength="5" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="card-cvv">CVV</label>
+                            <input type="password" id="card-cvv" placeholder="•••" maxlength="4" required>
+                        </div>
+                    </div>
+                    
+                    <label class="save-card">
+                        <input type="checkbox" id="save-card">
+                        <span class="checkmark"></span>
+                        Save card for future payments
+                    </label>
+                    
+                    <button type="submit" class="pay-btn">
+                        <span class="btn-text">Pay <span id="pay-amount">₹0</span></span>
+                        <span class="btn-loader"></span>
+                    </button>
+                </form>
+
+                <!-- UPI Form -->
+                <form id="upi-form" class="payment-form">
+                    <div class="upi-options">
+                        <label class="upi-option">
+                            <input type="radio" name="upi-app" value="gpay" checked>
+                            <div class="option-content">
+                                <span class="app-icon">G</span>
+                                <span>Google Pay</span>
+                            </div>
+                        </label>
+                        <label class="upi-option">
+                            <input type="radio" name="upi-app" value="phonepe">
+                            <div class="option-content">
+                                <span class="app-icon">P</span>
+                                <span>PhonePe</span>
+                            </div>
+                        </label>
+                        <label class="upi-option">
+                            <input type="radio" name="upi-app" value="paytm">
+                            <div class="option-content">
+                                <span class="app-icon">₹</span>
+                                <span>Paytm</span>
+                            </div>
+                        </label>
+                        <label class="upi-option">
+                            <input type="radio" name="upi-app" value="other">
+                            <div class="option-content">
+                                <span class="app-icon">@</span>
+                                <span>Other UPI</span>
+                            </div>
+                        </label>
+                    </div>
+                    
+                    <div class="form-group" id="upi-id-group">
+                        <label for="upi-id">UPI ID</label>
+                        <input type="text" id="upi-id" placeholder="yourname@upi">
+                    </div>
+                    
+                    <button type="submit" class="pay-btn">
+                        <span class="btn-text">Pay <span class="upi-pay-amount">₹0</span></span>
+                        <span class="btn-loader"></span>
+                    </button>
+                </form>
+
+                <!-- Net Banking Form -->
+                <form id="netbanking-form" class="payment-form">
+                    <div class="bank-options">
+                        <label class="bank-option">
+                            <input type="radio" name="bank" value="sbi" checked>
+                            <div class="option-content">
+                                <span class="bank-logo">SBI</span>
+                                <span>State Bank of India</span>
+                            </div>
+                        </label>
+                        <label class="bank-option">
+                            <input type="radio" name="bank" value="hdfc">
+                            <div class="option-content">
+                                <span class="bank-logo">HDFC</span>
+                                <span>HDFC Bank</span>
+                            </div>
+                        </label>
+                        <label class="bank-option">
+                            <input type="radio" name="bank" value="icici">
+                            <div class="option-content">
+                                <span class="bank-logo">ICICI</span>
+                                <span>ICICI Bank</span>
+                            </div>
+                        </label>
+                        <label class="bank-option">
+                            <input type="radio" name="bank" value="axis">
+                            <div class="option-content">
+                                <span class="bank-logo">AXIS</span>
+                                <span>Axis Bank</span>
+                            </div>
+                        </label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="other-bank">Or select your bank</label>
+                        <select id="other-bank">
+                            <option value="">-- Select Bank --</option>
+                            <option value="pnb">Punjab National Bank</option>
+                            <option value="bob">Bank of Baroda</option>
+                            <option value="kotak">Kotak Mahindra Bank</option>
+                            <option value="yes">Yes Bank</option>
+                            <option value="idbi">IDBI Bank</option>
+                            <option value="canara">Canara Bank</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="pay-btn">
+                        <span class="btn-text">Pay <span class="nb-pay-amount">₹0</span></span>
+                        <span class="btn-loader"></span>
+                    </button>
+                </form>
+
+                <!-- Wallet Form -->
+                <form id="wallet-form" class="payment-form">
+                    <div class="wallet-options">
+                        <label class="wallet-option">
+                            <input type="radio" name="wallet" value="paytm" checked>
+                            <div class="option-content">
+                                <span class="wallet-icon">₹</span>
+                                <span>Paytm Wallet</span>
+                            </div>
+                        </label>
+                        <label class="wallet-option">
+                            <input type="radio" name="wallet" value="mobikwik">
+                            <div class="option-content">
+                                <span class="wallet-icon">M</span>
+                                <span>MobiKwik</span>
+                            </div>
+                        </label>
+                        <label class="wallet-option">
+                            <input type="radio" name="wallet" value="freecharge">
+                            <div class="option-content">
+                                <span class="wallet-icon">F</span>
+                                <span>Freecharge</span>
+                            </div>
+                        </label>
+                        <label class="wallet-option">
+                            <input type="radio" name="wallet" value="amazonpay">
+                            <div class="option-content">
+                                <span class="wallet-icon">A</span>
+                                <span>Amazon Pay</span>
+                            </div>
+                        </label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="wallet-phone">Mobile Number</label>
+                        <input type="tel" id="wallet-phone" placeholder="+91 98765 43210" required>
+                    </div>
+                    
+                    <button type="submit" class="pay-btn">
+                        <span class="btn-text">Pay <span class="wallet-pay-amount">₹0</span></span>
+                        <span class="btn-loader"></span>
+                    </button>
+                </form>
+
+                <!-- Promo Code -->
+                <div class="promo-section">
+                    <div class="promo-header" id="promo-toggle">
+                        <span>Have a promo code?</span>
+                        <span class="toggle-icon">+</span>
+                    </div>
+                    <div class="promo-form" id="promo-form">
+                        <input type="text" id="promo-code" placeholder="Enter promo code">
+                        <button type="button" id="apply-promo">Apply</button>
+                    </div>
+                    <div class="promo-message" id="promo-message"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer id="footer" class="footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <div class="footer-logo">
+                    <div class="logo-small">Z</div>
+                    <h3>ZENDESI</h3>
+                </div>
+                <p>Discover, explore, and experience the beauty of India with curated travel experiences.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook">f</a>
+                    <a href="#" aria-label="Instagram">📷</a>
+                    <a href="#" aria-label="Twitter">𝕏</a>
+                    <a href="#" aria-label="YouTube">▶</a>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="explore.html">Explore</a></li>
+                    <li><a href="reviews.html">Reviews</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Help Centre</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="#">Safety</a></li>
+                    <li><a href="#">Community</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Accessibility</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 ZENDESI. All rights reserved. Crafted with ❤️ for Indian travelers.</p>
+            <div class="payment-methods">
+                <span>We accept: UPI • Credit Cards • Net Banking • Digital Wallets</span>
+            </div>
+        </div>
+    </footer>
+
+    <button class="scroll-top" aria-label="Scroll to top">↑</button>
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/payment.js"></script>
+</body>
+</html>

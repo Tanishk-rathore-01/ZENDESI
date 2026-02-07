@@ -11,7 +11,6 @@ const config = {
     carouselInterval: 5000
 };
 
-let carouselIndex = 0;
 let carouselTimer = null;
 
 /**
@@ -60,54 +59,69 @@ function initReviewsCarousel() {
 
     if (!container || !prevBtn || !nextBtn) return;
 
-    const cards = container.querySelectorAll('.review-card');
-    const cardsPerView = getCardsPerView();
+    const cards = Array.from(container.querySelectorAll('.review-card'));
+    if (!cards.length) return;
 
-    function getCardsPerView() {
-        const width = window.innerWidth;
-        if (width < 768) return 1;
-        if (width < 1024) return 2;
-        return 3;
+    // Enable CSS scroll-snap carousel styles
+    container.classList.add('reviews-carousel');
+
+    function getGapPx() {
+        const styles = window.getComputedStyle(container);
+        const gap = parseFloat(styles.gap || styles.columnGap || '0');
+        return Number.isFinite(gap) ? gap : 0;
     }
 
-    function updateCarousel() {
-        const cardWidth = container.offsetWidth / cardsPerView;
-        const offset = -carouselIndex * cardWidth;
-        container.style.transform = `translateX(${offset}px)`;
+    function getStepPx() {
+        const firstVisible = cards.find(c => c.offsetParent !== null) || cards[0];
+        const width = firstVisible.getBoundingClientRect().width;
+        return Math.max(1, Math.round(width + getGapPx()));
     }
 
-    function moveCarousel(direction) {
-        carouselIndex += direction;
-        const maxIndex = Math.max(0, cards.length - cardsPerView);
-        carouselIndex = Math.min(Math.max(0, carouselIndex), maxIndex);
-        updateCarousel();
+    function updateNavVisibility() {
+        const maxScrollLeft = container.scrollWidth - container.clientWidth;
+        const showNav = maxScrollLeft > 10;
+        prevBtn.style.display = showNav ? '' : 'none';
+        nextBtn.style.display = showNav ? '' : 'none';
+    }
+
+    function scrollByOne(direction) {
+        const step = getStepPx();
+        const maxScrollLeft = container.scrollWidth - container.clientWidth;
+
+        if (direction > 0 && container.scrollLeft >= maxScrollLeft - 2) {
+            container.scrollTo({ left: 0, behavior: 'smooth' });
+        } else if (direction < 0 && container.scrollLeft <= 2) {
+            container.scrollTo({ left: maxScrollLeft, behavior: 'smooth' });
+        } else {
+            container.scrollBy({ left: direction * step, behavior: 'smooth' });
+        }
+
         resetAutoplay();
     }
 
-    prevBtn.addEventListener('click', () => moveCarousel(-1));
-    nextBtn.addEventListener('click', () => moveCarousel(1));
-
-    // Initialize carousel styles
-    container.style.display = 'flex';
-    container.style.gap = '24px';
-    container.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-    container.style.overflowX = 'hidden';
-
-    // Handle window resize
-    window.addEventListener('resize', () => {
-        updateCarousel();
-    });
+    prevBtn.addEventListener('click', () => scrollByOne(-1));
+    nextBtn.addEventListener('click', () => scrollByOne(1));
 
     // Autoplay functionality
     function resetAutoplay() {
         clearTimeout(carouselTimer);
-        if (config.carouselAutoplay) {
-            carouselTimer = setTimeout(() => {
-                moveCarousel(1);
-            }, config.carouselInterval);
-        }
+        if (!config.carouselAutoplay) return;
+        carouselTimer = setTimeout(() => {
+            scrollByOne(1);
+        }, config.carouselInterval);
     }
 
+    container.addEventListener('scroll', () => {
+        updateNavVisibility();
+    }, { passive: true });
+
+    window.addEventListener('resize', () => {
+        updateNavVisibility();
+        const maxScrollLeft = container.scrollWidth - container.clientWidth;
+        if (container.scrollLeft > maxScrollLeft) container.scrollLeft = maxScrollLeft;
+    });
+
+    updateNavVisibility();
     resetAutoplay();
 }
 
@@ -119,12 +133,15 @@ function initCardInteractions() {
     
     cards.forEach(card => {
         card.addEventListener('click', handleCardClick);
-        card.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                handleCardClick.call(card);
-            }
-        });
+        // Don't override native keyboard behavior for links
+        if (card.tagName.toLowerCase() !== 'a') {
+            card.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleCardClick.call(card);
+                }
+            });
+        }
     });
 }
 
@@ -156,49 +173,71 @@ function initSmoothScroll() {
 }
 
 /**
+ * Highlight active navigation link based on scroll position
+ */
+function initNavActiveState() {
+    const navLinks = document.querySelectorAll('.nav-link');
+    if (!navLinks.length) return;
+
+    const currentFile = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
+    const mapped = currentFile === 'destination.html' ? 'explore.html' : currentFile;
+
+    navLinks.forEach(link => {
+        const raw = (link.getAttribute('href') || '').split('#')[0].split('?')[0];
+        const hrefFile = (raw.split('/').pop() || '').toLowerCase();
+        const isHome = (mapped === 'index.html' || mapped === '') && (hrefFile === 'index.html' || hrefFile === '');
+        const isActive = isHome || (hrefFile && hrefFile === mapped);
+        link.classList.toggle('active', isActive);
+    });
+}
+
+/**
  * Initialize header interactions
  */
 function initHeaderInteraction() {
-    const logo = document.querySelector('.logo');
-    const cta = document.querySelector('.cta-button');
+    const logoLink = document.querySelector('.logo-section');
+    if (!logoLink) return;
 
-    if (logo) {
-        logo.addEventListener('click', () => {
+    logoLink.addEventListener('click', (e) => {
+        const href = (logoLink.getAttribute('href') || '').split('#')[0].split('?')[0];
+        const currentFile = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
+
+        if ((href === '' || href === 'index.html') && (currentFile === '' || currentFile === 'index.html')) {
+            e.preventDefault();
             window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    }
-
-    if (cta) {
-        cta.addEventListener('click', () => {
-            alert('🎉 Booking functionality coming soon! Ready to explore India?');
-        });
-    }
+        }
+    });
 }
 
 /**
  * Initialize CTA buttons
  */
 function initCTAButtons() {
-    const buttons = document.querySelectorAll('.primary-button, .cta-primary-button, .secondary-button');
+    const buttons = document.querySelectorAll('.primary-button, .cta-primary-button, .secondary-button, [data-href]');
     
     buttons.forEach(btn => {
         btn.addEventListener('click', function(e) {
             // Add ripple effect
             const rect = this.getBoundingClientRect();
             const ripple = document.createElement('span');
-            ripple.style.position = 'absolute';
-            ripple.style.width = '20px';
-            ripple.style.height = '20px';
-            ripple.style.borderRadius = '50%';
-            ripple.style.background = 'rgba(255, 255, 255, 0.7)';
-            ripple.style.animation = 'ripple 0.6s ease-out';
-            ripple.style.pointerEvents = 'none';
-            
+            ripple.className = 'ripple';
+            ripple.style.left = (e.clientX - rect.left) + 'px';
+            ripple.style.top = (e.clientY - rect.top) + 'px';
+
             this.style.position = 'relative';
             this.style.overflow = 'hidden';
             this.appendChild(ripple);
-            
-            setTimeout(() => ripple.remove(), 600);
+
+            setTimeout(() => ripple.remove(), 700);
+
+            // Optional navigation for buttons
+            const href = this.dataset?.href;
+            if (href) {
+                e.preventDefault();
+                setTimeout(() => {
+                    window.location.href = href;
+                }, 180);
+            }
         });
     });
 }
@@ -248,18 +287,58 @@ function initFloatingElements() {
 /**
  * Initialize page scroll animations
  */
-function initPageScrollEffects() {
-    let scrollTimeout;
-    
+function safeJsonParse(raw) {
+    try {
+        return JSON.parse(raw);
+    } catch {
+        return null;
+    }
+}
+
+function initAuthHeader() {
+    const loginBtn = document.getElementById('login-btn');
+    const userMenu = document.getElementById('user-menu');
+    const userName = document.getElementById('user-name');
+    const logoutBtn = document.getElementById('logout-btn');
+
+    if (!loginBtn || !userMenu || !userName || !logoutBtn) return;
+
+    const token = localStorage.getItem('zendesi_token');
+    const user = safeJsonParse(localStorage.getItem('zendesi_user'));
+
+    if (token && user && user.name) {
+        loginBtn.classList.add('hidden');
+        userMenu.classList.remove('hidden');
+        userName.textContent = `Hi, ${String(user.name).split(' ')[0]}`;
+
+        logoutBtn.addEventListener('click', () => {
+            localStorage.removeItem('zendesi_token');
+            localStorage.removeItem('zendesi_user');
+            window.location.href = 'index.html';
+        });
+    } else {
+        loginBtn.classList.remove('hidden');
+        userMenu.classList.add('hidden');
+    }
+}
+
+/**
+ * Scroll-to-top button visibility and behavior
+ */
+function initScrollTopButton() {
+    const btn = document.querySelector('.scroll-top');
+    if (!btn) return;
+
     window.addEventListener('scroll', () => {
-        document.body.style.scrollBehavior = 'smooth';
-        
-        // Add subtle parallax effect to hero
-        const hero = document.querySelector('.hero');
-        if (hero) {
-            const scrollY = window.scrollY;
-            hero.style.transform = `translateY(${scrollY * 0.5}px)`;
+        if (window.scrollY > 300) {
+            btn.classList.add('show');
+        } else {
+            btn.classList.remove('show');
         }
+    });
+
+    btn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 }
 
@@ -317,20 +396,25 @@ function initBackgroundAnimation() {
         const duration = Math.random() * 30 + 20;
         const startX = Math.random() * 100;
         const startY = Math.random() * 100;
-        const color = ['rgba(255, 56, 92', 'rgba(0, 166, 153', 'rgba(255, 164, 28'][Math.floor(Math.random() * 3)];
+        const orbColors = [
+            '255, 56, 92',
+            '0, 166, 153',
+            '255, 164, 28'
+        ];
+        const color = orbColors[Math.floor(Math.random() * orbColors.length)];
 
         orb.style.cssText = `
             position: absolute;
             width: ${size}px;
             height: ${size}px;
-            background: radial-gradient(circle at 30% 30%, ${color}, 0.4), ${color}, 0.1));
+            background: radial-gradient(circle at 30% 30%, rgba(${color}, 0.4), rgba(${color}, 0.1));
             border-radius: 50%;
             left: ${startX}%;
             top: ${startY}%;
             filter: blur(40px);
             animation: floatOrb ${duration}s infinite ease-in-out;
             opacity: 0.15;
-            box-shadow: 0 0 60px ${color}, 0.3);
+            box-shadow: 0 0 60px rgba(${color}, 0.3);
         `;
 
         starContainer.appendChild(orb);
@@ -428,6 +512,8 @@ function initializeApp() {
     initBackgroundAnimation();
     initMouseFollowParticles();
 
+    initAuthHeader();
+    initNavActiveState();
     initCTAButtons();
 
     // Check for IntersectionObserver support
@@ -446,9 +532,8 @@ function initializeApp() {
     initImageLoading();
     initReviewsCarousel();
     initSmoothScroll();
-    initCTAButtons();
     initFloatingElements();
-    initPageScrollEffects();
+    initScrollTopButton();
 
     console.log('✨ ZENDESI app initialized successfully!');
 }
@@ -464,10 +549,3 @@ if (document.readyState === 'loading') {
 window.addEventListener('beforeunload', () => {
     clearTimeout(carouselTimer);
 });
-// Backend connection test
-const BACKEND_URL = "http://localhost:5000";
-
-fetch(`${BACKEND_URL}/`)
-  .then(res => res.text())
-  .then(data => console.log("✅ BACKEND CONNECTED:", data))
-  .catch(err => console.error("❌ BACKEND CONNECTION ERROR:", err));

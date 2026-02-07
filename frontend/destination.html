@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ZENDESI - Explore hotels, resorts and accommodations">
+    <meta name="theme-color" content="#ff385c">
+    <title>ZENDESI - Explore Destination</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <header role="banner">
+        <div class="nav-container">
+            <a href="index.html" class="logo-section">
+                <div class="logo" aria-label="ZENDESI Logo">Z</div>
+                <h1>ZENDESI</h1>
+            </a>
+            <nav class="nav-menu" aria-label="Primary navigation">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="explore.html" class="nav-link">Explore</a>
+                <a href="reviews.html" class="nav-link">Reviews</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+            <div class="header-actions">
+                <div id="user-menu" class="user-menu hidden">
+                    <span id="user-name"></span>
+                    <button id="logout-btn" class="logout-btn">Logout</button>
+                </div>
+                <a href="auth.html" id="login-btn" class="cta-button">Login</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="destination-main">
+        <!-- Hero Section -->
+        <section class="destination-hero" id="destination-hero">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <span class="destination-badge">Popular Destination</span>
+                <h1 id="destination-name">Loading...</h1>
+                <p id="destination-tagline" class="destination-tagline"></p>
+                <div class="destination-stats">
+                    <div class="stat">
+                        <span class="stat-value" id="hotel-count">0</span>
+                        <span class="stat-label">Stays</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value" id="avg-rating">0</span>
+                        <span class="stat-label">Avg Rating</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value" id="starting-price">₹0</span>
+                        <span class="stat-label">From / night (+ taxes)</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value" id="price-range">₹0</span>
+                        <span class="stat-label">Price Range</span>
+                    </div>
+                </div>
+                <p class="destination-note">Prices are per night (+ taxes) and vary by property and dates. Tip: sort by <strong>Price: Low to High</strong> for budget options.</p>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="destination-about">
+            <div class="about-content">
+                <h2>About This Destination</h2>
+                <p id="destination-description"></p>
+                <div class="destination-highlights">
+                    <div class="highlight" id="highlights-container">
+                        <!-- Highlights populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hotels Section -->
+        <section class="hotels-section">
+            <div class="section-header">
+                <h2 class="section-title">Available Accommodations</h2>
+                <p class="section-subtitle">Choose from our handpicked hotels and resorts</p>
+            </div>
+
+            <!-- Filters -->
+            <div class="filters-bar">
+                <div class="filter-group">
+                    <label>Sort by:</label>
+                    <select id="sort-filter">
+                        <option value="price-low" selected>Price: Low to High</option>
+                        <option value="recommended">Recommended</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="rating">Highest Rated</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Type:</label>
+                    <select id="type-filter">
+                        <option value="all">All</option>
+                        <option value="hotel">Hotels</option>
+                        <option value="resort">Resorts</option>
+                        <option value="homestay">Homestays</option>
+                        <option value="villa">Villas</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Price Range:</label>
+                    <select id="price-filter">
+                        <option value="all">All Prices</option>
+                        <option value="budget">Under ₹3,000</option>
+                        <option value="mid">₹3,000 - ₹8,000</option>
+                        <option value="premium">₹8,000 - ₹15,000</option>
+                        <option value="luxury">Above ₹15,000</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Hotels Grid -->
+            <div class="hotels-grid" id="hotels-grid">
+                <!-- Hotels populated by JS -->
+            </div>
+        </section>
+
+        <!-- Why Book Section -->
+        <section class="why-book-section">
+            <div class="section-header">
+                <h2 class="section-title">Why Book with ZENDESI?</h2>
+                <p class="section-subtitle">Trusted stays, transparent pricing, and support whenever you need it</p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <span class="benefit-icon">✅</span>
+                    <h3>Verified Properties</h3>
+                    <p>Handpicked stays with quality checks for a safe, clean experience</p>
+                </div>
+                <div class="benefit-card">
+                    <span class="benefit-icon">🏷️</span>
+                    <h3>Smart Deals</h3>
+                    <p>Seasonal offers and promo codes to help you save more</p>
+                </div>
+                <div class="benefit-card">
+                    <span class="benefit-icon">🔒</span>
+                    <h3>Secure Payments</h3>
+                    <p>UPI, cards, net banking — encrypted checkout you can trust</p>
+                </div>
+                <div class="benefit-card">
+                    <span class="benefit-icon">💬</span>
+                    <h3>Quick Support</h3>
+                    <p>Fast help on call/WhatsApp for booking changes and questions</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Booking Modal -->
+    <div id="booking-modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close">&times;</button>
+            <div class="modal-header">
+                <h2>Book Your Stay</h2>
+                <p id="modal-hotel-name"></p>
+            </div>
+            <form id="booking-form" class="booking-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="checkin">Check-in Date</label>
+                        <input type="date" id="checkin" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="checkout">Check-out Date</label>
+                        <input type="date" id="checkout" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="guests">Guests</label>
+                        <select id="guests" required>
+                            <option value="1">1 Guest</option>
+                            <option value="2" selected>2 Guests</option>
+                            <option value="3">3 Guests</option>
+                            <option value="4">4 Guests</option>
+                            <option value="5">5+ Guests</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="rooms">Rooms</label>
+                        <select id="rooms" required>
+                            <option value="1" selected>1 Room</option>
+                            <option value="2">2 Rooms</option>
+                            <option value="3">3 Rooms</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="booking-summary">
+                    <div class="summary-row">
+                        <span>Price per night</span>
+                        <span id="modal-price">₹0</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Number of nights</span>
+                        <span id="modal-nights">0</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Taxes & fees (18% GST)</span>
+                        <span id="modal-taxes">₹0</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total</span>
+                        <span id="modal-total">₹0</span>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn booking-submit">
+                    <span class="btn-text">Proceed to Payment</span>
+                    <span class="btn-loader"></span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <footer id="footer" class="footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <div class="footer-logo">
+                    <div class="logo-small">Z</div>
+                    <h3>ZENDESI</h3>
+                </div>
+                <p>Discover, explore, and experience the beauty of India with curated travel experiences.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook">f</a>
+                    <a href="#" aria-label="Instagram">📷</a>
+                    <a href="#" aria-label="Twitter">𝕏</a>
+                    <a href="#" aria-label="YouTube">▶</a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="explore.html">Explore</a></li>
+                    <li><a href="reviews.html">Reviews</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Help Centre</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Safety</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 ZENDESI. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <button class="scroll-top" aria-label="Scroll to top">↑</button>
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/destination.js"></script>
+</body>
+</html>

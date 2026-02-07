@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ZENDESI - Explore destinations across India. Search and filter top places, hotels and resorts.">
+    <meta name="theme-color" content="#ff385c">
+    <title>ZENDESI - Explore Destinations</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <header role="banner">
+        <div class="nav-container">
+            <a href="index.html" class="logo-section">
+                <div class="logo" aria-label="ZENDESI Logo">Z</div>
+                <h1>ZENDESI</h1>
+            </a>
+            <nav class="nav-menu" aria-label="Primary navigation">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="explore.html" class="nav-link">Explore</a>
+                <a href="reviews.html" class="nav-link">Reviews</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+            <div class="header-actions">
+                <div id="user-menu" class="user-menu hidden">
+                    <span id="user-name"></span>
+                    <button id="logout-btn" class="logout-btn">Logout</button>
+                </div>
+                <a href="auth.html" id="login-btn" class="cta-button">Login</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h2>Explore India, One Stay at a Time</h2>
+                <p class="subtitle">Search destinations and discover hotels, resorts and unique homestays</p>
+                <div class="cta-group">
+                    <button class="primary-button" data-href="#places">Popular Picks</button>
+                    <button class="secondary-button" data-href="reviews.html">See Reviews</button>
+                </div>
+            </div>
+            <div class="hero-decoration"></div>
+        </section>
+
+        <section class="explore-tools" aria-label="Search destinations">
+            <div class="search-card">
+                <div class="search-row">
+                    <div class="search-input">
+                        <label for="destination-search" class="sr-only">Search destinations</label>
+                        <input id="destination-search" type="text" placeholder="Search: Goa, Nagaland, Kashmir, Jaipur..." autocomplete="off">
+                    </div>
+                    <button type="button" id="clear-search" class="ghost-button">Clear</button>
+                </div>
+                <p class="search-hint">Tip: Try “Nagaland” to see cultural stays and homestays.</p>
+            </div>
+        </section>
+
+        <section class="places-section" aria-label="Available destinations" id="places">
+            <div class="section-header">
+                <h2 class="section-title">All Destinations</h2>
+                <p class="section-subtitle">Pick a place and we’ll show hotels, resorts, villas and homestays</p>
+            </div>
+            <div class="places-grid" id="places-grid">
+                <a href="destination.html?place=taj-mahal" class="place-card" data-search="taj mahal agra" tabindex="0">
+                    <img loading="lazy" src="https://images.unsplash.com/photo-1548013146-72479768bada?q=80&w=1176&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Taj Mahal - iconic marble mausoleum in Agra">
+                    <h3>Taj Mahal</h3>
+                    <p class="price" aria-label="Price">From ₹3,500 per night <span class="price-note">+ taxes</span></p>
+                    <p class="description">The iconic symbol of love in Agra, a UNESCO World Heritage Site.</p>
+                </a>
+                <a href="destination.html?place=golden-temple" class="place-card" data-search="golden temple amritsar punjab" tabindex="0">
+                    <img loading="lazy" src="https://images.unsplash.com/photo-1514222134-b57cbb8ce073?q=80&w=1536&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Golden Temple - sacred Sikh shrine in Amritsar">
+                    <h3>Golden Temple</h3>
+                    <p class="price" aria-label="Price">From ₹2,500 per night <span class="price-note">+ taxes</span></p>
+                    <p class="description">Sacred Sikh shrine in Amritsar, radiating spiritual peace.</p>
+                </a>
+                <a href="destination.html?place=kerala-backwaters" class="place-card" data-search="kerala backwaters alleppey kumarakom" tabindex="0">
+                    <img loading="lazy" src="https://plus.unsplash.com/premium_photo-1697729438401-fcb4ff66d9a8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Kerala Backwaters - serene waterways with lush greenery">
+                    <h3>Kerala Backwaters</h3>
+                    <p class="price" aria-label="Price">From ₹4,200 per night <span class="price-note">+ taxes</span></p>
+                    <p class="description">Serene waterways and lush greenery in God's Own Country.</p>
+                </a>
+                <a href="destination.html?place=goa" class="place-card" data-search="goa beaches panaji" tabindex="0">
+                    <img loading="lazy" src="https://plus.unsplash.com/premium_photo-1697730411634-5313371ad8fe?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Goa - vibrant beaches with Portuguese colonial architecture">
+                    <h3>Goa</h3>
+                    <p class="price" aria-label="Price">From ₹3,500 per night <span class="price-note">+ taxes</span></p>
+                    <p class="description">Vibrant beaches and Portuguese heritage for a tropical escape.</p>
+                </a>
+                <a href="destination.html?place=jaipur" class="place-card" data-search="jaipur rajasthan pink city" tabindex="0">
+                    <img loading="lazy" src="https://images.unsplash.com/photo-1526711657229-7376142f0065?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Jaipur - pink city with forts and palaces">
+                    <h3>Jaipur</h3>
+                    <p class="price" aria-label="Price">From ₹3,000 per night <span class="price-note">+ taxes</span></p>
+                    <p class="description">Royal forts, palaces and colorful bazaars in Rajasthan.</p>
+                </a>
+                <a href="destination.html?place=mumbai" class="place-card" data-search="mumbai maharashtra" tabindex="0">
+                    <img loading="lazy" src="https://images.unsplash.com/photo-1604062522944-89c9d9c0a4f6?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Mumbai - iconic skyline and marine drive">
+                    <h3>Mumbai</h3>
+                    <p class="price" aria-label="Price">From ₹5,000 per night <span class="price-note">+ taxes</span></p>
+                    <p class="description">The city that never sleeps: food, beaches and Bollywood vibes.</p>
+                </a>
+                <a href="destination.html?place=delhi" class="place-card" data-search="delhi new delhi" tabindex="0">
+                    <img loading="lazy" src="https://images.unsplash.com/photo-1587474260584-136574528ed5?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Delhi - historic monuments and modern city life">
+                    <h3>Delhi</h3>
+                    <p class="price" aria-label="Price">From ₹3,500 per night <span class="price-note">+ taxes</span></p>
+                    <p class="description">History, street food and iconic landmarks across Old & New Delhi.</p>
+                </a>
+                <a href="destination.html?place=kashmir" class="place-card" data-search="kashmir srinagar gulmarg pahalgam" tabindex="0">
+                    <img loading="lazy" src="https://images.unsplash.com/photo-1609948495550-5157e7b19b90?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Kashmir - snow-capped mountains and serene valleys">
+                    <h3>Kashmir</h3>
+                    <p class="price" aria-label="Price">From ₹4,000 per night <span class="price-note">+ taxes</span></p>
+                    <p class="description">Snowy mountains, valleys and houseboats — a timeless escape.</p>
+                </a>
+                <a href="destination.html?place=rishikesh" class="place-card" data-search="rishikesh uttarakhand yoga rafting" tabindex="0">
+                    <img loading="lazy" src="https://images.unsplash.com/photo-1598528738936-c50861cc75a9?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Rishikesh - yoga capital with Ganga river">
+                    <h3>Rishikesh</h3>
+                    <p class="price" aria-label="Price">From ₹2,500 per night <span class="price-note">+ taxes</span></p>
+                    <p class="description">Yoga retreats, river rafting and peaceful ghats by the Ganga.</p>
+                </a>
+                <a href="destination.html?place=udaipur" class="place-card" data-search="udaipur rajasthan lakes city" tabindex="0">
+                    <img loading="lazy" src="https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Udaipur - city of lakes and palaces">
+                    <h3>Udaipur</h3>
+                    <p class="price" aria-label="Price">From ₹5,000 per night <span class="price-note">+ taxes</span></p>
+                    <p class="description">Romantic lakes, palaces and sunset boat rides in Rajasthan.</p>
+                </a>
+                <a href="destination.html?place=mysore-palace" class="place-card" data-search="mysore palace karnataka" tabindex="0">
+                    <img loading="lazy" src="https://images.unsplash.com/photo-1659126574791-13313aa424bd?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Mysore Palace - opulent royal palace in Karnataka">
+                    <h3>Mysore Palace</h3>
+                    <p class="price" aria-label="Price">From ₹3,000 per night <span class="price-note">+ taxes</span></p>
+                    <p class="description">Opulent royal palace in the cultural heart of Karnataka.</p>
+                </a>
+                <a href="destination.html?place=nagaland" class="place-card" data-search="nagaland kohima hornbill festival dzukou" tabindex="0">
+                    <img loading="lazy" src="https://images.unsplash.com/photo-1542708993627-b6e5bbae43c4?q=80&w=1144&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Nagaland - Land of Festivals with vibrant tribal culture">
+                    <h3>Nagaland</h3>
+                    <p class="price" aria-label="Price">From ₹2,500 per night <span class="price-note">+ taxes</span></p>
+                    <p class="description">Land of Festivals — tribes, culture, and the Hornbill Festival.</p>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer id="footer" class="footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <div class="footer-logo">
+                    <div class="logo-small">Z</div>
+                    <h3>ZENDESI</h3>
+                </div>
+                <p>Discover, explore, and experience the beauty of India with curated travel experiences.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook">f</a>
+                    <a href="#" aria-label="Instagram">📷</a>
+                    <a href="#" aria-label="Twitter">𝕏</a>
+                    <a href="#" aria-label="YouTube">▶</a>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="explore.html">Explore</a></li>
+                    <li><a href="reviews.html">Reviews</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Help Centre</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="#">Safety</a></li>
+                    <li><a href="#">Community</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Accessibility</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 ZENDESI. All rights reserved. Crafted with ❤️ for Indian travelers.</p>
+            <div class="payment-methods">
+                <span>We accept: UPI • Credit Cards • Net Banking • Digital Wallets</span>
+            </div>
+        </div>
+    </footer>
+
+    <button class="scroll-top" aria-label="Scroll to top">↑</button>
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/explore.js"></script>
+</body>
+</html>

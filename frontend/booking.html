@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ZENDESI - Booking Confirmation">
+    <meta name="theme-color" content="#ff385c">
+    <title>ZENDESI - Booking Confirmed!</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="booking-body">
+    <!-- Confetti Animation Container -->
+    <div id="confetti-container"></div>
+
+    <header role="banner">
+        <div class="nav-container">
+            <a href="index.html" class="logo-section">
+                <div class="logo" aria-label="ZENDESI Logo">Z</div>
+                <h1>ZENDESI</h1>
+            </a>
+            <div class="checkout-steps">
+                <span class="step completed">1. Select</span>
+                <span class="step completed">2. Details</span>
+                <span class="step completed">3. Payment</span>
+                <span class="step completed active">4. Confirm</span>
+            </div>
+            <div class="header-actions">
+                <div id="user-menu" class="user-menu hidden">
+                    <span id="user-name"></span>
+                    <button id="logout-btn" class="logout-btn">Logout</button>
+                </div>
+                <a href="auth.html" id="login-btn" class="cta-button">Login</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="booking-main">
+        <div class="confirmation-container">
+            <!-- Success Animation -->
+            <div class="success-animation">
+                <div class="checkmark-circle">
+                    <div class="checkmark"></div>
+                </div>
+            </div>
+
+            <h1 class="confirmation-title">Booking Confirmed! 🎉</h1>
+            <p class="confirmation-subtitle">Thank you for choosing ZENDESI. Your adventure awaits!</p>
+
+            <!-- Booking ID -->
+            <div class="booking-id-card">
+                <span class="label">Booking ID</span>
+                <span class="value" id="booking-id">ZEN123456</span>
+                <button class="copy-btn" id="copy-btn" title="Copy to clipboard">📋</button>
+            </div>
+
+            <!-- Booking Details Card -->
+            <div class="confirmation-card">
+                <div class="card-header">
+                    <img id="hotel-image" src="" alt="Hotel">
+                    <div class="hotel-info">
+                        <h2 id="hotel-name">Hotel Name</h2>
+                        <p id="destination" class="destination">Destination</p>
+                        <div class="rating">
+                            <span class="stars" id="hotel-stars">★★★★★</span>
+                            <span id="hotel-rating">5.0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <span class="icon">📅</span>
+                            <div>
+                                <span class="label">Check-in</span>
+                                <span class="value" id="checkin">-</span>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <span class="icon">📅</span>
+                            <div>
+                                <span class="label">Check-out</span>
+                                <span class="value" id="checkout">-</span>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <span class="icon">🌙</span>
+                            <div>
+                                <span class="label">Duration</span>
+                                <span class="value" id="nights">-</span>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <span class="icon">👥</span>
+                            <div>
+                                <span class="label">Guests</span>
+                                <span class="value" id="guests">-</span>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <span class="icon">🛏️</span>
+                            <div>
+                                <span class="label">Rooms</span>
+                                <span class="value" id="rooms">-</span>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <span class="icon">💳</span>
+                            <div>
+                                <span class="label">Payment</span>
+                                <span class="value" id="payment-method">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="amount-paid">
+                        <span>Total Paid</span>
+                        <span class="amount" id="total-paid">₹0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- What's Next -->
+            <div class="whats-next">
+                <h3>What's Next?</h3>
+                <div class="next-steps">
+                    <div class="step-item">
+                        <span class="step-icon">📧</span>
+                        <div>
+                            <h4>Confirmation Email</h4>
+                            <p>Check your email for booking details and voucher</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <span class="step-icon">📱</span>
+                        <div>
+                            <h4>SMS Notification</h4>
+                            <p>You'll receive an SMS with check-in instructions</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <span class="step-icon">🏨</span>
+                        <div>
+                            <h4>Check-in</h4>
+                            <p>Show your booking ID at the hotel reception</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="btn-primary" id="download-btn">
+                    <span>📥</span> Download Voucher
+                </button>
+                <a href="index.html" class="btn-secondary">
+                    <span>🏠</span> Back to Home
+                </a>
+            </div>
+
+            <!-- Support -->
+            <div class="support-section">
+                <p>Need help? Contact our 24/7 support</p>
+                <a href="tel:+911800123456" class="support-link">📞 1800-123-ZENDESI</a>
+            </div>
+        </div>
+    </main>
+
+    <footer id="footer" class="footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <div class="footer-logo">
+                    <div class="logo-small">Z</div>
+                    <h3>ZENDESI</h3>
+                </div>
+                <p>Discover, explore, and experience the beauty of India with curated travel experiences.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook">f</a>
+                    <a href="#" aria-label="Instagram">📷</a>
+                    <a href="#" aria-label="Twitter">𝕏</a>
+                    <a href="#" aria-label="YouTube">▶</a>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="explore.html">Explore</a></li>
+                    <li><a href="reviews.html">Reviews</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Help Centre</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="#">Safety</a></li>
+                    <li><a href="#">Community</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Accessibility</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 ZENDESI. All rights reserved. Crafted with ❤️ for Indian travelers.</p>
+            <div class="payment-methods">
+                <span>We accept: UPI • Credit Cards • Net Banking • Digital Wallets</span>
+            </div>
+        </div>
+    </footer>
+
+    <button class="scroll-top" aria-label="Scroll to top">↑</button>
+    <script src="assets/js/script.js"></script>
+    <script>
+        'use strict';
+
+        function initConfirmationPage() {
+            loadConfirmationData();
+            createConfetti();
+            initCopyButton();
+            initDownloadButton();
+        }
+
+        function loadConfirmationData() {
+            const data = sessionStorage.getItem('zendesi_confirmation');
+            
+            if (!data) {
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            const booking = JSON.parse(data);
+            
+            // Booking ID
+            document.getElementById('booking-id').textContent = booking.bookingId;
+            
+            // Hotel info
+            document.getElementById('hotel-image').src = booking.hotel.image;
+            document.getElementById('hotel-name').textContent = booking.hotel.name;
+            document.getElementById('destination').textContent = booking.destination;
+            document.getElementById('hotel-stars').textContent = getStars(booking.hotel.rating);
+            document.getElementById('hotel-rating').textContent = booking.hotel.rating;
+            
+            // Booking details
+            document.getElementById('checkin').textContent = formatDate(booking.checkin);
+            document.getElementById('checkout').textContent = formatDate(booking.checkout);
+            document.getElementById('nights').textContent = `${booking.nights} night${booking.nights > 1 ? 's' : ''}`;
+            document.getElementById('guests').textContent = `${booking.guests} guest${booking.guests > 1 ? 's' : ''}`;
+            document.getElementById('rooms').textContent = `${booking.rooms} room${booking.rooms > 1 ? 's' : ''}`;
+            
+            // Payment
+            const methodNames = {
+                'card': 'Credit/Debit Card',
+                'upi': 'UPI',
+                'netbanking': 'Net Banking',
+                'wallet': 'Digital Wallet'
+            };
+            document.getElementById('payment-method').textContent = methodNames[booking.paymentMethod] || 'Online';
+            
+            // Total
+            const finalAmount = booking.finalTotal || booking.total;
+            document.getElementById('total-paid').textContent = `₹${finalAmount.toLocaleString()}`;
+            
+            // Clear session data
+            sessionStorage.removeItem('zendesi_booking');
+            sessionStorage.removeItem('zendesi_confirmation');
+        }
+
+        function getStars(rating) {
+            const fullStars = Math.floor(rating);
+            return '★'.repeat(fullStars) + '☆'.repeat(5 - fullStars);
+        }
+
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            return date.toLocaleDateString('en-IN', { 
+                weekday: 'short', 
+                day: 'numeric', 
+                month: 'short', 
+                year: 'numeric' 
+            });
+        }
+
+        function createConfetti() {
+            const container = document.getElementById('confetti-container');
+            const colors = ['#ff385c', '#00a699', '#ffa41c', '#ff6b7a', '#FFD700'];
+            
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                confetti.style.animationDelay = Math.random() * 2 + 's';
+                container.appendChild(confetti);
+            }
+            
+            // Remove confetti after animation
+            setTimeout(() => {
+                container.innerHTML = '';
+            }, 6000);
+        }
+
+        function initCopyButton() {
+            const copyBtn = document.getElementById('copy-btn');
+            const bookingId = document.getElementById('booking-id');
+            
+            copyBtn.addEventListener('click', async () => {
+                try {
+                    await navigator.clipboard.writeText(bookingId.textContent);
+                    copyBtn.textContent = '✓';
+                    setTimeout(() => {
+                        copyBtn.textContent = '📋';
+                    }, 2000);
+                } catch (err) {
+                    console.error('Failed to copy:', err);
+                }
+            });
+        }
+
+        function initDownloadButton() {
+            const downloadBtn = document.getElementById('download-btn');
+            
+            downloadBtn.addEventListener('click', () => {
+                // In a real app, this would generate a PDF voucher
+                alert('📄 Your booking voucher is being downloaded!\n\n(In production, this would generate a PDF with all booking details)');
+            });
+        }
+
+        // Initialize
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initConfirmationPage);
+        } else {
+            initConfirmationPage();
+        }
+    </script>
+</body>
+</html>

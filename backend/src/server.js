@@ -12,12 +12,47 @@ connectDB();
 const app = express();
 
 // CORS configuration for frontend-backend connection
-app.use(cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:3000",
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-    allowedHeaders: ["Content-Type", "Authorization"]
-}));
+const isProduction = process.env.NODE_ENV === "production";
+const configuredOrigins = (process.env.FRONTEND_URLS || process.env.FRONTEND_URL || "")
+    .split(",")
+    .map((v) => v.trim())
+    .filter(Boolean);
+
+const defaultDevOrigins = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "http://localhost:5500",
+    "http://127.0.0.1:5500",
+];
+
+const allowedOrigins = new Set(
+    (configuredOrigins.length ? configuredOrigins : defaultDevOrigins).map((o) => o.toLowerCase())
+);
+
+app.use(
+    cors({
+        origin: (origin, callback) => {
+            // Allow non-browser tools and local file previews (Origin: null)
+            if (!origin || origin === "null") return callback(null, true);
+
+            const normalized = origin.toLowerCase();
+
+            if (allowedOrigins.has(normalized)) return callback(null, true);
+
+            // Allow any localhost port in development
+            if (!isProduction && /^http:\/\/(localhost|127\.0\.0\.1):\d+$/.test(normalized)) {
+                return callback(null, true);
+            }
+
+            return callback(new Error(`CORS blocked for origin: ${origin}`));
+        },
+        credentials: true,
+        methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+        allowedHeaders: ["Content-Type", "Authorization"],
+    })
+);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
